@@ -1,0 +1,250 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0a0a0f;
+  --card: #111118;
+  --border: rgba(255,255,255,0.07);
+  --text: #f0eee8;
+  --muted: #6b6b7a;
+
+  --fb:  #1877F2;
+  --tt:  #000000;
+  --ig1: #f09433;
+  --ig2: #e6683c;
+  --ig3: #dc2743;
+  --ig4: #cc2366;
+  --ig5: #bc1888;
+  --wa:  #25D366;
+}
+
+html, body { height: 100%; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  overflow-x: hidden;
+}
+
+body::before, body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 0;
+}
+body::before {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, #5c4aff, transparent 70%);
+  top: -180px; left: -180px;
+}
+body::after {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, #ff4a8d, transparent 70%);
+  bottom: -150px; right: -150px;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  animation: fadeUp 0.6s ease both;
+}
+
+.avatar {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5c4aff, #ff4a8d);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  margin: 0 auto 1rem;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px rgba(255,255,255,0.1);
+}
+
+.header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.header p {
+  margin-top: 0.4rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* Cards */
+.links {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.22s cubic-bezier(.34,1.56,.64,1),
+              box-shadow 0.22s ease,
+              border-color 0.22s ease;
+  animation: fadeUp 0.6s ease both;
+}
+
+.link-card:hover {
+  transform: translateY(-3px) scale(1.015);
+}
+
+.link-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 4px;
+  border-radius: 4px 0 0 4px;
+  transition: opacity 0.2s;
+}
+
+.link-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+.link-card:hover::after { transform: translateX(100%); }
+
+/* Network colours */
+.fb::before { background: var(--fb); }
+.tt::before { background: #69C9D0; }
+.ig::before { background: linear-gradient(to bottom, var(--ig1), var(--ig5)); }
+.wa::before { background: var(--wa); }
+
+.fb:hover { box-shadow: 0 8px 32px rgba(24,119,242,0.22);  border-color: rgba(24,119,242,0.3); }
+.tt:hover { box-shadow: 0 8px 32px rgba(105,201,208,0.2);  border-color: rgba(105,201,208,0.25); }
+.ig:hover { box-shadow: 0 8px 32px rgba(220,39,67,0.22);   border-color: rgba(220,39,67,0.3); }
+.wa:hover { box-shadow: 0 8px 32px rgba(37,211,102,0.22);  border-color: rgba(37,211,102,0.3); }
+
+/* Icons */
+.icon-wrap {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.fb .icon-wrap { background: rgba(24,119,242,0.15); }
+.tt .icon-wrap { background: rgba(105,201,208,0.12); }
+.ig .icon-wrap { background: rgba(220,39,67,0.12); }
+.wa .icon-wrap { background: rgba(37,211,102,0.12); }
+
+.icon-wrap svg {
+  width: 24px; height: 24px;
+  transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* Animaciones de ícono por red */
+.fb:hover .icon-wrap svg { transform: rotate(-10deg) scale(1.25); }
+.tt:hover .icon-wrap svg { transform: rotate(12deg) scale(1.2); }
+.ig:hover .icon-wrap svg { transform: scale(1.3) rotate(-6deg); }
+.wa:hover .icon-wrap svg { transform: translateY(-4px) scale(1.2); }
+
+/* Pulso en icon-wrap al hover */
+.link-card:hover .icon-wrap {
+  animation: iconPulse 0.6s ease forwards;
+}
+
+@keyframes iconPulse {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1.05); }
+}
+
+/* Partículas */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: floatUp 0.8s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0%   { opacity: 0.7; transform: translateY(0) scale(1); }
+  100% { opacity: 0;   transform: translateY(-40px) scale(0.3); }
+}
+
+.info { flex: 1; }
+.info .name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+.info .handle {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.arrow {
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: color 0.2s, transform 0.2s;
+}
+.link-card:hover .arrow {
+  color: var(--text);
+  transform: translateX(3px);
+}
+
+/* Stagger */
+.link-card:nth-child(1) { animation-delay: 0.15s; }
+.link-card:nth-child(2) { animation-delay: 0.25s; }
+.link-card:nth-child(3) { animation-delay: 0.35s; }
+.link-card:nth-child(4) { animation-delay: 0.45s; }
+
+/* Footer */
+.footer {
+  font-size: 0.75rem;
+  color: var(--muted);
+  animation: fadeUp 0.6s 0.55s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 360px) {
+  .link-card { padding: 0.85rem 1rem; }
+  .icon-wrap  { width: 40px; height: 40px; border-radius: 10px; }
+  .icon-wrap svg { width: 20px; height: 20px; }
+}
